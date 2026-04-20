@@ -17,7 +17,7 @@ export async function generateStaticParams() {
 }
 
 export default async function SurahPage({ params }) {
-  const { id } = params;
+  const { id } = await params;
   let surah = null;
   let error = null;
 
