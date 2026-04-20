@@ -2,37 +2,54 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { ChevronRight, ArrowUpRight } from 'lucide-react';
 
 export default function SurahCard({ surah }) {
   return (
     <Link 
       href={`/surah/${surah.number}`}
-      className="group p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:border-emerald-200 dark:hover:border-emerald-900 hover:shadow-xl hover:shadow-emerald-900/5 transition-all duration-300 flex items-center justify-between"
+      className="bento-card group p-8"
     >
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 flex items-center justify-center bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 font-bold rounded-xl rotate-45 group-hover:rotate-0 transition-transform duration-500">
-          <span className="-rotate-45 group-hover:rotate-0 transition-transform duration-500 uppercase">
-            {surah.number}
-          </span>
+      <div className="flex flex-col h-full justify-between gap-8">
+        <div className="flex items-start justify-between">
+          <div className="relative">
+            <div className="w-14 h-14 flex items-center justify-center bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 font-bold rounded-2xl rotate-12 group-hover:rotate-0 transition-all duration-500 shadow-sm group-hover:shadow-lg">
+              <span className="-rotate-12 group-hover:rotate-0 transition-transform duration-500">
+                {surah.number}
+              </span>
+            </div>
+            {/* Pulsing indicator for revelation type */}
+            <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-4 border-white dark:border-slate-800 ${surah.revelationType === 'Meccan' ? 'bg-amber-400' : 'bg-emerald-500'}`}></div>
+          </div>
+          
+          <div className="text-right">
+            <div className="text-3xl font-arabic text-slate-800 dark:text-white leading-tight mb-1" style={{ fontFamily: 'Amiri' }}>
+              {surah.name}
+            </div>
+            <p className="text-[10px] text-slate-400 font-bold tracking-[0.2em] uppercase">
+              {surah.revelationType}
+            </p>
+          </div>
         </div>
-        <div>
-          <h3 className="text-lg font-bold text-slate-800 dark:text-white group-hover:text-emerald-600 transition-colors">
-            {surah.englishName}
-          </h3>
-          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
-            {surah.englishNameTranslation} • {surah.numberOfAyahs} Ayahs
-          </p>
+
+        <div className="flex items-end justify-between border-t border-slate-50 dark:border-slate-800/50 pt-6">
+          <div>
+            <h3 className="text-xl font-extrabold text-slate-900 dark:text-white group-hover:text-emerald-600 transition-colors mb-1">
+              {surah.englishName}
+            </h3>
+            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
+              {surah.englishNameTranslation} • <span className="text-emerald-600/70 font-bold">{surah.numberOfAyahs} Ayahs</span>
+            </p>
+          </div>
+          
+          <div className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 group-hover:bg-emerald-600 group-hover:text-white transition-all transform group-hover:rotate-45">
+            <ArrowUpRight size={20} />
+          </div>
         </div>
       </div>
-      
-      <div className="text-right">
-        <div className="text-2xl font-arabic text-emerald-900 dark:text-emerald-400 leading-none mb-1" style={{ fontFamily: 'Amiri' }}>
-          {surah.name}
-        </div>
-        <p className="text-[10px] text-slate-400 font-bold tracking-widest uppercase">
-          {surah.revelationType}
-        </p>
-      </div>
+
+      {/* Decorative hover effect background */}
+      <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-600/5 rounded-full blur-3xl -mr-16 -mt-16 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
     </Link>
   );
 }
