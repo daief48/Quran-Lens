@@ -1,30 +1,9 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Header from '@/components/Header';
-import SurahCard from '@/components/SurahCard';
-import Pagination from '@/components/Pagination';
-import { fetchSurahs } from '@/lib/api';
+import SurahList from '@/components/SurahList';
 import { Sparkles, Compass } from 'lucide-react';
 
-export default async function Home({ searchParams }) {
-  let surahs = [];
-  let error = null;
-  
-  // Await searchParams in Next.js 15+
-  const sp = await searchParams;
-  const currentPage = parseInt(sp.page) || 1;
-  const itemsPerPage = 12;
-
-  try {
-    surahs = await fetchSurahs();
-  } catch (err) {
-    error = err.message;
-  }
-
-  const totalSurahs = surahs.length;
-  const totalPages = Math.ceil(totalSurahs / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentSurahs = surahs.slice(startIndex, startIndex + itemsPerPage);
-
+export default function Home() {
   return (
     <main className="min-h-screen pb-32 bg-mashrabiya overflow-x-hidden relative">
       {/* Cinematic Deep Forest Overlay */}
@@ -64,37 +43,15 @@ export default async function Home({ searchParams }) {
           </div>
         </div>
 
-        {error ? (
-          <div className="bento-card bg-red-50 dark:bg-red-950/20 text-red-600 p-12 text-center border-red-100 dark:border-red-900/30 max-w-xl mx-auto">
-            <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Sparkles className="text-red-600" size={32} />
-            </div>
-            <h3 className="text-2xl font-bold mb-4 italic">Connection Interrupted</h3>
-            <p className="font-medium mb-6">{error}</p>
-            <a 
-              href="/"
-              className="px-8 py-3 bg-red-600 text-white font-bold rounded-2xl hover:bg-red-700 transition-colors shadow-lg shadow-red-900/20"
-            >
-              Try Reconnecting
-            </a>
+        <Suspense fallback={
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600"></div>
           </div>
-        ) : (
-          <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in slide-in-from-bottom-10 duration-1000 ease-out">
-              {currentSurahs.map((surah) => (
-                <SurahCard key={surah.number} surah={surah} />
-              ))}
-            </div>
-            
-            <div className="mt-20 flex justify-center">
-              <Pagination 
-                currentPage={currentPage}
-                totalPages={totalPages}
-              />
-            </div>
-          </>
-        )}
+        }>
+          <SurahList />
+        </Suspense>
       </div>
     </main>
   );
 }
+
