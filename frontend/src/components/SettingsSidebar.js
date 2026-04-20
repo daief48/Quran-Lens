@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { X, Type, Languages, Moon, Sun, Sliders, Palette } from 'lucide-react';
+import { X, Type, Languages, Moon, Sun, Sliders, Palette, Sparkles } from 'lucide-react';
 import { useSettings } from '@/context/SettingsContext';
 
 export default function SettingsSidebar({ isOpen, onClose }) {

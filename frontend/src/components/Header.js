@@ -2,8 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, Settings, Book, Menu, Sparkles, X, Heart } from 'lucide-react';
-import SettingsSidebar from './SettingsSidebar';
+import dynamic from 'next/dynamic';
+import { Search, Settings, Book, Menu, Sparkles, X, Heart, ShieldHeader } from 'lucide-react';
+
+const SettingsSidebar = dynamic(() => import('./SettingsSidebar'), {
+  ssr: false,
+});
 
 export default function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -19,65 +23,68 @@ export default function Header() {
 
   return (
     <>
-      <div className={`fixed top-0 left-0 right-0 z-40 transition-all duration-700 ease-in-out px-4 sm:px-6 ${scrolled ? 'pt-2 sm:pt-4' : 'pt-4 sm:pt-8'}`}>
+      <div className={`fixed top-0 left-0 right-0 z-40 transition-all duration-1000 ease-in-out px-4 sm:px-6 ${scrolled ? 'pt-2 sm:pt-4' : 'pt-4 sm:pt-10'}`}>
         <header 
-          className={`max-w-5xl mx-auto rounded-[1.5rem] sm:rounded-[2.5rem] transition-all duration-700 border ${
+          className={`max-w-5xl mx-auto rounded-[1.5rem] sm:rounded-[3rem] transition-all duration-1000 border relative overflow-hidden ${
             scrolled 
-              ? 'glass shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)] py-2 sm:py-3 px-4 sm:px-8' 
-              : 'bg-white/40 dark:bg-slate-900/40 border-slate-200/20 dark:border-white/5 py-3 sm:py-5 px-4 sm:px-10'
+              ? 'glass shadow-[0_25px_60px_rgba(0,0,0,0.15)] py-3 px-6 sm:px-10 border-white/50 dark:border-white/10' 
+              : 'bg-white/60 dark:bg-slate-900/60 border-[#a4773f]/20 py-5 px-6 sm:px-12'
           }`}
         >
+          {/* Animated Gold Line at top */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#a4773f]/40 to-transparent"></div>
+
           <div className="flex items-center justify-between">
-            {/* Logo Section */}
-            <Link href="/" className="flex items-center gap-2 sm:gap-4 group">
+            {/* Sacred Logo Section */}
+            <Link href="/" className="flex items-center gap-3 sm:gap-5 group">
               <div className="relative">
-                <div className="w-10 h-10 sm:w-14 sm:h-14 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl sm:rounded-2xl flex items-center justify-center text-white shadow-lg shadow-emerald-900/20 group-hover:scale-105 group-hover:rotate-3 transition-all duration-500">
-                  <Book size={20} className="sm:hidden" />
-                  <Book size={28} className="hidden sm:block" />
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-[#042f2e] border-2 border-[#a4773f]/30 rounded-2xl sm:rounded-[2rem] flex items-center justify-center text-white shadow-2xl group-hover:scale-105 group-hover:rotate-6 transition-all duration-700">
+                  <Book size={28} className="text-[#a4773f] group-hover:text-amber-400 transition-colors" />
                 </div>
-                <div className="absolute -top-1 -right-1 flex h-3 w-3 sm:h-4 sm:w-4">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 sm:h-4 sm:w-4 bg-amber-500"></span>
+                <div className="absolute -top-1.5 -right-1.5 flex h-4 w-4 sm:h-5 sm:w-5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#a4773f] opacity-40"></span>
+                  <span className="relative inline-flex rounded-full h-4 w-4 sm:h-5 sm:w-5 bg-[#a4773f] border-2 border-[#fdfcf0]"></span>
                 </div>
               </div>
               <div className="flex flex-col">
-                <h1 className="text-lg sm:text-2xl font-black tracking-tight text-slate-900 dark:text-white flex items-center gap-1 sm:gap-2">
+                <h1 className="text-xl sm:text-3xl font-sacred font-black tracking-tight text-[#042f2e] dark:text-white flex items-center gap-1.5">
                   Quran
-                  <span className="text-emerald-600 italic">Lens</span>
-                  <Sparkles size={14} className="text-amber-500 animate-pulse" />
+                  <span className="text-[#a4773f] italic font-serif">Lens</span>
                 </h1>
-                <p className="text-[8px] sm:text-[10px] text-slate-400 dark:text-slate-500 font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase hidden xs:block">Reflect & Explore</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-[8px] sm:text-[10px] text-[#8a6335] dark:text-[#a4773f] font-black tracking-[0.4em] uppercase">Reflect & Explore</p>
+                  <Sparkles size={10} className="text-amber-500 animate-pulse" />
+                </div>
               </div>
             </Link>
 
-            {/* Navigation Actions */}
-            <div className="flex items-center gap-1 sm:gap-3">
+            {/* Noble Navigation */}
+            <div className="flex items-center gap-2 sm:gap-4">
               <Link 
                 href="/search" 
-                className="flex items-center justify-center w-10 h-10 sm:w-auto sm:px-6 sm:py-3 text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 rounded-xl sm:rounded-2xl transition-all font-bold text-sm group"
+                className="flex items-center justify-center w-11 h-11 sm:w-auto sm:px-8 sm:py-3.5 text-slate-800 dark:text-slate-300 hover:text-white hover:bg-[#042f2e] dark:hover:bg-emerald-600 rounded-xl sm:rounded-3xl transition-all font-sacred font-bold text-sm group shadow-sm hover:shadow-emerald-900/30 border border-transparent hover:border-[#a4773f]/30"
                 aria-label="Search"
               >
-                <Search size={20} className="group-hover:scale-110 transition-transform" />
-                <span className="hidden md:inline ml-2">Search Light</span>
+                <Search size={22} className="group-hover:scale-110 transition-transform" />
+                <span className="hidden md:inline ml-3 tracking-wide">Sacred Search</span>
               </Link>
               
-              <div className="w-px h-6 bg-slate-200 dark:bg-slate-800 mx-1 hidden sm:block"></div>
+              <div className="w-px h-8 bg-[#a4773f]/20 mx-1 hidden sm:block"></div>
               
               <button 
                 onClick={() => setIsSidebarOpen(true)}
-                className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl sm:rounded-2xl transition-all relative overflow-hidden group"
+                className="w-11 h-11 sm:w-14 sm:h-14 flex items-center justify-center text-[#a4773f] hover:bg-[#a4773f]/10 rounded-xl sm:rounded-3xl transition-all relative overflow-hidden group border border-transparent hover:border-[#a4773f]/30"
                 aria-label="Settings"
               >
-                <Settings size={20} className="sm:hidden group-hover:rotate-90 transition-transform duration-500" />
-                <Settings size={24} className="hidden sm:block group-hover:rotate-90 transition-transform duration-500" />
+                <Settings size={22} className="sm:hidden group-hover:rotate-90 transition-transform duration-700" />
+                <Settings size={28} className="hidden sm:block group-hover:rotate-90 transition-transform duration-700" />
               </button>
             </div>
           </div>
         </header>
       </div>
 
-      {/* Responsive Spacer */}
-      <div className="h-24 sm:h-36"></div>
+      <div className="h-32 sm:h-44"></div>
 
       <SettingsSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
     </>

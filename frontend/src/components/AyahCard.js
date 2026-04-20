@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Copy, Share2, Bookmark, Check, BookMarked, Sparkle } from 'lucide-react';
+import React, { useState, useEffect, memo } from 'react';
+import { Copy, Share2, Bookmark, Check, BookMarked, Sparkles } from 'lucide-react';
 import { useSettings } from '@/context/SettingsContext';
 
-export default function AyahCard({ ayah, surahName, surahNumber }) {
+const AyahCard = memo(function AyahCard({ ayah, surahName, surahNumber }) {
   const { settings } = useSettings();
   const [copied, setCopied] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -52,73 +52,96 @@ export default function AyahCard({ ayah, surahName, surahNumber }) {
   return (
     <div 
       id={`ayah-${ayah.numberInSurah}`}
-      className="bento-card p-6 sm:p-10 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md group relative"
+      className="bento-card p-6 sm:p-12 bg-white/90 dark:bg-slate-900/60 backdrop-blur-xl group relative border-[#a4773f]/10 hover:border-[#a4773f]/30"
     >
-      {/* Background soft glow */}
-      <div className="absolute top-0 left-0 w-32 h-32 bg-emerald-600/5 rounded-full blur-3xl -ml-16 -mt-16 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+      {/* Decorative Side Ribbon */}
+      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-[#042f2e] via-[#a4773f] to-[#042f2e] opacity-40"></div>
 
-      <div className="flex flex-col gap-6 sm:gap-10">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-          <div className="flex items-center gap-3 sm:gap-4">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-slate-900 dark:bg-emerald-600 text-white flex items-center justify-center font-extrabold text-base sm:text-lg shadow-xl shadow-slate-900/20 dark:shadow-emerald-900/40">
-              {ayah.numberInSurah}
+      <div className="flex flex-col gap-8 sm:gap-14">
+        {/* Header Action Bar */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-b border-[#a4773f]/5 pb-8">
+          <div className="flex items-center gap-4 sm:gap-6">
+            <div className="relative group/num">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-[1.5rem] sm:rounded-[2rem] bg-[#042f2e] text-amber-400 flex items-center justify-center font-sacred font-black text-xl sm:text-2xl shadow-2xl relative z-10 border border-amber-500/20 group-hover/num:scale-110 transition-transform duration-500">
+                {ayah.numberInSurah}
+              </div>
+              <div className="absolute inset-0 bg-amber-500 rounded-[2rem] blur-xl opacity-0 group-hover/num:opacity-20 transition-opacity duration-1000"></div>
             </div>
             <div>
-              <span className="text-[8px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] block mb-0.5">Reference</span>
-              <span className="text-xs sm:text-sm font-extrabold text-slate-800 dark:text-white uppercase tracking-wider">
-                {surahName} • {surahNumber}:{ayah.numberInSurah}
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-[10px] font-black text-[#5c4225] dark:text-amber-500 uppercase tracking-[0.4em]">Sacred Verse</span>
+                <Sparkles size={12} className="text-amber-500 animate-pulse" />
+              </div>
+              <span className="text-base sm:text-xl font-sacred font-black text-black dark:text-white tracking-tight">
+                {surahName} <span className="text-amber-600/30 mx-1 sm:mx-2">•</span> {surahNumber}:{ayah.numberInSurah}
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 p-1 bg-slate-50 dark:bg-slate-800/50 rounded-xl sm:rounded-2xl border border-slate-100 dark:border-slate-800 self-start sm:self-auto">
+          <div className="flex items-center gap-2 p-1.5 bg-[#fdfcf0] dark:bg-slate-800/80 rounded-2xl sm:rounded-3xl border border-[#a4773f]/10 self-start sm:self-auto shadow-inner">
             <button 
               onClick={handleCopy}
-              className="p-2 sm:p-3 text-slate-400 hover:text-emerald-600 hover:bg-white dark:hover:bg-slate-800 rounded-lg sm:rounded-xl transition-all shadow-sm shadow-transparent hover:shadow-black/5"
+              className="p-3 sm:p-4 text-slate-600 dark:text-slate-400 hover:text-[#042f2e] dark:hover:text-emerald-400 hover:bg-white dark:hover:bg-slate-800 rounded-xl sm:rounded-2xl transition-all group/btn"
               title="Copy"
             >
-              {copied ? <Check size={16} /> : <Copy size={16} />}
+              {copied ? <Check size={20} className="text-emerald-600" /> : <Copy size={20} className="group-hover/btn:scale-110 transition-transform" />}
             </button>
             <button 
               onClick={handleShare}
-              className="p-3 text-slate-400 hover:text-emerald-600 hover:bg-white dark:hover:bg-slate-800 rounded-xl transition-all shadow-sm shadow-transparent hover:shadow-black/5"
+              className="p-3 sm:p-4 text-slate-600 dark:text-slate-400 hover:text-[#042f2e] dark:hover:text-emerald-400 hover:bg-white dark:hover:bg-slate-800 rounded-xl sm:rounded-2xl transition-all group/btn"
               title="Share"
             >
-              <Share2 size={18} />
+              <Share2 size={20} className="group-hover/btn:scale-110 transition-transform" />
             </button>
             <button 
               onClick={toggleBookmark}
-              className={`p-3 rounded-xl transition-all shadow-sm ${isBookmarked ? 'text-emerald-600 bg-white dark:bg-slate-800 shadow-black/5' : 'text-slate-400 hover:text-emerald-600 hover:bg-white dark:hover:bg-slate-800 shadow-transparent hover:shadow-black/5'}`}
+              className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl transition-all ${isBookmarked ? 'text-[#a4773f] bg-white dark:bg-slate-800 shadow-md' : 'text-slate-600 dark:text-slate-400 hover:text-[#a4773f] hover:bg-white dark:hover:bg-slate-800 group/btn'}`}
               title="Bookmark"
             >
-              {isBookmarked ? <BookMarked size={18} /> : <Bookmark size={18} />}
+              {isBookmarked ? <BookMarked size={22} /> : <Bookmark size={22} className="group-hover/btn:scale-110 transition-transform" />}
             </button>
           </div>
         </div>
 
+        {/* Sacred Arabic Text */}
         <div 
-          className="arabic text-right leading-loose text-slate-900 dark:text-slate-100 selection:bg-emerald-100 selection:text-emerald-900"
+          className="arabic text-right leading-[2.8] sm:leading-[3.2] text-[#042f2e] dark:text-[#a5f3e0] selection:bg-[#a4773f]/20 selection:text-[#042f2e]"
           style={{ 
             fontFamily: settings.arabicFont === 'Amiri' ? 'var(--font-amiri)' : 'var(--font-scheherazade)',
-            fontSize: `${settings.arabicFontSize}px`,
-            lineHeight: settings.arabicFont === 'Amiri' ? '2.4' : '1.9'
+            fontSize: `${settings.arabicFontSize + 4}px`,
+            textShadow: '0 0 1px rgba(164, 119, 63, 0.1)'
           }}
         >
           {ayah.text}
         </div>
 
-        <div className="flex gap-6">
-          <div className="w-1.5 rounded-full bg-gradient-to-b from-emerald-600 to-teal-500 opacity-20"></div>
+        {/* Sacred Translation */}
+        <div className="flex gap-8 relative mt-4">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-1.5 h-full rounded-full bg-[#a4773f]/20 relative">
+              <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-[#a4773f]/40 to-transparent rounded-full"></div>
+            </div>
+          </div>
           <div 
-            className="text-slate-600 dark:text-slate-400 font-semibold leading-relaxed"
-            style={{ fontSize: `${settings.translationFontSize}px` }}
+            className="text-slate-900 dark:text-slate-300 font-medium leading-loose font-sacred py-2"
+            style={{ fontSize: `${settings.translationFontSize + 2}px` }}
           >
-            <span className="text-emerald-600/50 mr-2 text-xl font-serif inline-block transform -translate-y-1">&ldquo;</span>
-            <span className="italic">{ayah.translation}</span>
-            <span className="text-emerald-600/50 ml-1 text-xl font-serif inline-block transform translate-y-2">&rdquo;</span>
+            <div className="text-[#a4773f]/60 mb-3 select-none">
+              <Share2 size={24} className="rotate-180 opacity-40" />
+            </div>
+            <span className="italic relative z-10 drop-shadow-sm">
+               {ayah.translation}
+            </span>
           </div>
         </div>
       </div>
+
+      {/* Decorative Mashrabiya Corner Motif */}
+      <svg className="absolute bottom-0 right-0 w-24 h-24 text-[#a4773f]/5 pointer-events-none" viewBox="0 0 100 100">
+        <path d="M100 0 L100 100 L0 100 Z" fill="currentColor" />
+      </svg>
     </div>
   );
-}
+});
+
+export default AyahCard;

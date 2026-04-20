@@ -27,7 +27,16 @@ export const SettingsProvider = ({ children }) => {
   // Save to localStorage on change
   useEffect(() => {
     localStorage.setItem('quran-lens-settings', JSON.stringify(settings));
-  }, [settings]);
+    
+    // Apply theme to document
+    if (settings.theme === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    }
+  }, [settings.theme, settings]);
 
   const updateSettings = (newSettings) => {
     setSettings((prev) => ({ ...prev, ...newSettings }));

@@ -1,4 +1,4 @@
-import { Plus_Jakarta_Sans, Amiri, Scheherazade_New } from "next/font/google";
+import { Plus_Jakarta_Sans, Amiri, Scheherazade_New, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { SettingsProvider } from "@/context/SettingsContext";
 
@@ -19,6 +19,11 @@ const scheherazade = Scheherazade_New({
   variable: '--font-scheherazade',
 });
 
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: '--font-playfair',
+});
+
 export const metadata = {
   title: "Quran Lens - Explore the Quran",
   description: "A modern Quran web application with Arabic text and English translations.",
@@ -27,7 +32,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${jakarta.variable} ${amiri.variable} ${scheherazade.variable} antialiased`}>
+      <body className={`${jakarta.variable} ${amiri.variable} ${scheherazade.variable} ${playfair.variable} antialiased`}>
         <SettingsProvider>
           {children}
         </SettingsProvider>
