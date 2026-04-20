@@ -53,7 +53,7 @@ export default function SettingsSidebar({ isOpen, onClose }) {
                 >
                   <div 
                     className={`text-3xl mb-3 text-right leading-tight ${settings.arabicFont === font ? 'text-emerald-600' : 'text-slate-700 dark:text-slate-300'}`}
-                    style={{ fontFamily: font === 'Amiri' ? 'Amiri' : '"Scheherazade New"' }}
+                    style={{ fontFamily: font === 'Amiri' ? 'var(--font-amiri)' : 'var(--font-scheherazade)' }}
                   >
                     بِسْمِ اللَّهِ
                   </div>

@@ -52,32 +52,32 @@ export default function AyahCard({ ayah, surahName, surahNumber }) {
   return (
     <div 
       id={`ayah-${ayah.numberInSurah}`}
-      className="bento-card p-10 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md group relative"
+      className="bento-card p-6 sm:p-10 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md group relative"
     >
       {/* Background soft glow */}
       <div className="absolute top-0 left-0 w-32 h-32 bg-emerald-600/5 rounded-full blur-3xl -ml-16 -mt-16 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
-      <div className="flex flex-col gap-10">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-slate-900 dark:bg-emerald-600 text-white flex items-center justify-center font-extrabold text-lg shadow-xl shadow-slate-900/20 dark:shadow-emerald-900/40">
+      <div className="flex flex-col gap-6 sm:gap-10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-slate-900 dark:bg-emerald-600 text-white flex items-center justify-center font-extrabold text-base sm:text-lg shadow-xl shadow-slate-900/20 dark:shadow-emerald-900/40">
               {ayah.numberInSurah}
             </div>
             <div>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] block mb-0.5">Reference</span>
-              <span className="text-sm font-extrabold text-slate-800 dark:text-white uppercase tracking-wider">
+              <span className="text-[8px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] block mb-0.5">Reference</span>
+              <span className="text-xs sm:text-sm font-extrabold text-slate-800 dark:text-white uppercase tracking-wider">
                 {surahName} • {surahNumber}:{ayah.numberInSurah}
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 p-1.5 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+          <div className="flex items-center gap-1.5 p-1 bg-slate-50 dark:bg-slate-800/50 rounded-xl sm:rounded-2xl border border-slate-100 dark:border-slate-800 self-start sm:self-auto">
             <button 
               onClick={handleCopy}
-              className="p-3 text-slate-400 hover:text-emerald-600 hover:bg-white dark:hover:bg-slate-800 rounded-xl transition-all shadow-sm shadow-transparent hover:shadow-black/5"
+              className="p-2 sm:p-3 text-slate-400 hover:text-emerald-600 hover:bg-white dark:hover:bg-slate-800 rounded-lg sm:rounded-xl transition-all shadow-sm shadow-transparent hover:shadow-black/5"
               title="Copy"
             >
-              {copied ? <Check size={18} /> : <Copy size={18} />}
+              {copied ? <Check size={16} /> : <Copy size={16} />}
             </button>
             <button 
               onClick={handleShare}
@@ -99,7 +99,7 @@ export default function AyahCard({ ayah, surahName, surahNumber }) {
         <div 
           className="arabic text-right leading-loose text-slate-900 dark:text-slate-100 selection:bg-emerald-100 selection:text-emerald-900"
           style={{ 
-            fontFamily: settings.arabicFont === 'Amiri' ? 'Amiri' : '"Scheherazade New"',
+            fontFamily: settings.arabicFont === 'Amiri' ? 'var(--font-amiri)' : 'var(--font-scheherazade)',
             fontSize: `${settings.arabicFontSize}px`,
             lineHeight: settings.arabicFont === 'Amiri' ? '2.4' : '1.9'
           }}

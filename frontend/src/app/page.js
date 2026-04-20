@@ -29,22 +29,22 @@ export default function Home() {
     <main className="min-h-screen pb-20 bg-pattern">
       <Header />
       
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Dynamic Hero Section */}
-        <div className="relative mb-20">
+        <div className="relative mb-12 sm:mb-20">
           <div className="absolute inset-0 -z-10 flex justify-center overflow-hidden blur-3xl opacity-20">
-            <div className="w-[80%] aspect-square bg-gradient-to-tr from-emerald-600 to-amber-400 rounded-full animate-blob"></div>
+            <div className="w-[100%] sm:w-[80%] aspect-square bg-gradient-to-tr from-emerald-600 to-amber-400 rounded-full animate-blob"></div>
           </div>
           
-          <div className="text-center pt-10 pb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 font-bold text-xs uppercase tracking-widest mb-6 border border-emerald-100 dark:border-emerald-900/30">
+          <div className="text-center pt-6 sm:pt-10 pb-10 sm:pb-16 px-2">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 font-bold text-[10px] sm:text-xs uppercase tracking-widest mb-6 border border-emerald-100 dark:border-emerald-900/30">
               <Compass size={14} />
               Spiritual Journey
             </div>
-            <h2 className="text-5xl md:text-7xl font-extrabold text-slate-900 dark:text-white mb-8 tracking-tight">
+            <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-slate-900 dark:text-white mb-6 sm:mb-8 tracking-tight leading-tight">
               The Noble <span className="text-emerald-600 italic">Quran</span>
             </h2>
-            <p className="text-lg md:text-xl text-slate-500 dark:text-slate-400 font-medium max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-slate-500 dark:text-slate-400 font-medium max-w-3xl mx-auto leading-relaxed px-4">
               Experience the divine wisdom through a modern lens. Explore 114 Surahs with crystal clear typography, translation, and meaningful reflection.
             </p>
           </div>
